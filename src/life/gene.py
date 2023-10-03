@@ -24,6 +24,9 @@ class Gene:
     def __str__(self):
         return ''.join([str(nuc) for nuc in self._nucleotides])
 
+    def __repr__(self):
+        return '<Gene>'
+
     def __eq__(self, other):
         if isinstance(other, Gene):
             return self._nucleotides == other.nucleotides

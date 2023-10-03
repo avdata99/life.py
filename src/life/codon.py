@@ -20,3 +20,6 @@ class Codon(Gene):
     @property
     def is_stop(self):
         return str(self) in ['TAA', 'TAG', 'TGA']
+
+    def __repr__(self):
+        return f'<Codon {str(self)}>'
