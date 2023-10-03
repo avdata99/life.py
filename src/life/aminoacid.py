@@ -1,4 +1,4 @@
-from life.codon import Codon
+from life import Codon
 from life.exceptions import InvalidAminoAcid, InvalidCodon
 from life.extras.amino_from_code import amino_acids_from_code
 from life.extras.amino_from_codons import amino_acids_from_codon

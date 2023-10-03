@@ -41,3 +41,16 @@ class Nucleotide:
             return False
 
         raise TypeError(f'Cannot compare Nucleotide to {type(other)}')
+
+    def __add__(self, other):
+        from life import Gene
+        if isinstance(other, Nucleotide):
+            code = f'{self._name}{other.name}'
+            return Gene(code)
+        elif isinstance(other, Gene):
+            code = f'{self._name}{other.code}'
+            return Gene(code)
+        elif isinstance(other, str):
+            code = f'{self._name}{other.upper()}'
+            return Gene(code)
+        raise TypeError(f'Cannot add Nucleotide to {type(other)}')

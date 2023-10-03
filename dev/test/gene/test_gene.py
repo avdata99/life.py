@@ -1,13 +1,13 @@
 import os
 from unittest import TestCase
 from life.exceptions import InvalidGene
-from life.gene import Gene
-from life.nucleotide import Nucleotide
+from life import Gene, Nucleotide
 
 
 class TestGene(TestCase):
     def setUp(self):
-        self.gene = Gene('ACGTGCA')
+        self.code = 'ACGTGCA'
+        self.gene = Gene(self.code)
 
     def test_gene_init(self):
         """ Test Gene init """
@@ -21,6 +21,10 @@ class TestGene(TestCase):
             Nucleotide('A')
         ]
         self.assertEqual(self.gene.nucleotides, expected)
+
+    def test_gene_code_prop(self):
+        """ Test Gene init """
+        self.assertEqual(self.gene.code, self.code)
 
     def test_gene_len(self):
         """ Test Gene init """
@@ -48,3 +52,18 @@ class TestGene(TestCase):
     def test_ro_nucleotides(self):
         with self.assertRaises(AttributeError):
             self.gene.nucleotides = [Nucleotide('A')]
+
+    def test_add_nuc(self):
+        nuc_a = Nucleotide('A')
+        nuc_c = Nucleotide('C')
+        nucs = nuc_a + nuc_c
+        self.assertIsInstance(nucs, Gene)
+        self.assertEqual(str(nucs), 'AC')
+        self.assertEqual(nucs, Gene('AC'))
+
+    def test_add_str(self):
+        nuc_a = Nucleotide('A')
+        nucs = nuc_a + 'c'
+        self.assertIsInstance(nucs, Gene)
+        self.assertEqual(str(nucs), 'AC')
+        self.assertEqual(nucs, Gene('AC'))

@@ -1,6 +1,7 @@
 from unittest import TestCase
 from life.exceptions import InvalidAminoAcid
-from life.aminoacid import Aminoacid, ARGININE
+from life import Aminoacid
+from life.aminoacid import ARGININE
 
 
 class TestAminoFromCode(TestCase):

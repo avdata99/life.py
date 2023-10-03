@@ -1,8 +1,7 @@
 import os
 from unittest import TestCase
-from life.codon import Codon
+from life import Codon, Nucleotide
 from life.exceptions import InvalidCodon
-from life.nucleotide import Nucleotide
 
 
 class TestCodon(TestCase):

@@ -1,5 +1,5 @@
 from life.exceptions import InvalidCodon, InvalidGene
-from life.gene import Gene
+from life import Gene
 
 
 class Codon(Gene):
