@@ -2,6 +2,8 @@
 Valid nucleotides
 adenine (A), cytosine (C), guanine (G), and thymine (T).
 """
+from life.exceptions import InvalidNuecleotide
+
 
 VALID_NUCS = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 
@@ -11,7 +13,7 @@ class Nucleotide:
     def __init__(self, nucleotide):
         nucleotide = nucleotide.upper()
         if nucleotide not in VALID_NUCS:
-            raise ValueError(f'{nucleotide} is not a valid nucleotide')
+            raise InvalidNuecleotide(f'{nucleotide} is not a valid nucleotide')
         self._name = nucleotide
         self._value = VALID_NUCS[nucleotide]
 
