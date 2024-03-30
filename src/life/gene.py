@@ -1,5 +1,6 @@
-from life.exceptions import InvalidNuecleotide, InvalidGene
 from life import Nucleotide
+from life.exceptions import InvalidNuecleotide, InvalidGene
+from life.files.base import GenFile
 
 
 class Gene:
@@ -59,8 +60,12 @@ class Gene:
             return Gene(code)
         raise TypeError(f'Cannot add Gene to {type(other)}')
 
-    def save_bin(self, path):
-        """ Save as binary """
-        f = open(path, 'wb')
-        f.write(bytes([nuc.value for nuc in self._nucleotides]))
-        f.close()
+    def save(self, path, file_type):
+        """ Save gene data
+            params:
+             - path: str [mandatory]
+             - file_type: str [optional] life | fasta | fa | others by plugins
+               If the path ends with an known extension we can omit this parameter
+        """
+        gf = GenFile()
+        gf.save(gene=self, path=path, file_type=file_type)
