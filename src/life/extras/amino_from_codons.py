@@ -53,6 +53,7 @@ amino_acids_from_codon = {
     'ACC': {'name': 'Threonine', 'code': 'T'},
     'ACA': {'name': 'Threonine', 'code': 'T'},
     'ACG': {'name': 'Threonine', 'code': 'T'},
+    'TGA': {'name': 'Selenocysteine', 'code': 'U'},
     'GTT': {'name': 'Valine', 'code': 'V'},
     'GTC': {'name': 'Valine', 'code': 'V'},
     'GTA': {'name': 'Valine', 'code': 'V'},
@@ -64,4 +65,7 @@ amino_acids_from_codon = {
     # 'TAA': None,
     # 'TAG': None,
     # 'TGA': None,
+    # Start
+    # 'ATG': None,
+
 }
