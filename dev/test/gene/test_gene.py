@@ -8,6 +8,7 @@ class TestGene(TestCase):
     def setUp(self):
         self.code = 'ACGTGCA'
         self.gene = Gene(self.code)
+        self.gene.description = 'Some gene description'
 
     def test_gene_init(self):
         """ Test Gene init """
@@ -43,11 +44,18 @@ class TestGene(TestCase):
         with self.assertRaises(InvalidGene):
             Gene('ACGTXCA')
 
-    def test_save(self):
+    def test_save_bin(self):
         file_path = 'test.life'
         self.gene.save(file_path)
         with open(file_path, 'rb') as f:
             assert f.read() == b'\x00\x01\x02\x03\x02\x01\x00'
+        os.remove(file_path)
+
+    def test_save_fasta(self):
+        file_path = 'test.fasta'
+        self.gene.save(file_path)
+        f = open(file_path, 'r')
+        assert f.read() == '>Some gene description\nACGTGCA\n'
         os.remove(file_path)
 
     def test_ro_nucleotides(self):

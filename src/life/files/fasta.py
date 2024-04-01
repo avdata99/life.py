@@ -8,10 +8,23 @@ DEFAULT_EXTENSION = 'fasta'
 class FastaFile(GenFile):
     """ Saving gen data to a bin file """
 
-    def __init__(self, path=None):
+    def __init__(self, path=None, max_line_length=80):
         super().__init__()
         if path:
             self.open(path)
+        self._max_line_length = max_line_length
+
+    @property
+    def max_line_length(self):
+        return self._max_line_length
+
+    @max_line_length.setter
+    def max_line_length(self, value):
+        if not isinstance(value, int):
+            raise TypeError(f'Max line length must be an integer, not {type(value)}')
+        if value < 1:
+            raise ValueError('Max line length must be greater than 0')
+        self._max_line_length = value
 
     def open(self, path):
         super().open(path, file_type=DEFAULT_EXTENSION)
@@ -27,4 +40,8 @@ class FastaFile(GenFile):
         return GenFileInternalType.TEXT
 
     def save(self, gene, path):
-        pass
+        f = open(path, 'w')
+        f.write(f'>{gene.description}\n')
+        for i in range(0, len(gene), self._max_line_length):
+            f.write(gene.code[i:i + self._max_line_length] + '\n')
+        f.close()

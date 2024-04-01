@@ -7,11 +7,13 @@ class Gene:
     """ Justa group of nucleotides """
 
     def __init__(self, nucleotides):
+        nucleotides = nucleotides.upper()
         try:
             self._nucleotides = [Nucleotide(nuc) for nuc in nucleotides]
         except InvalidNuecleotide as e:
             raise InvalidGene(f'{nucleotides} is not a valid gene') from e
         self._all_str = nucleotides
+        self._description = None
 
     @property
     def nucleotides(self):
@@ -20,6 +22,17 @@ class Gene:
     @property
     def code(self):
         return self._all_str
+
+    @property
+    def description(self):
+        return self._description
+
+    @description.setter
+    def description(self, value):
+        """ Define or update the description of the secuence """
+        if not isinstance(value, str):
+            raise TypeError(f'Description must be a string, not {type(value)}')
+        self._description = value
 
     def __len__(self):
         return len(self._nucleotides)
