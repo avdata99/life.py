@@ -1,4 +1,4 @@
-""" 
+"""
 Valid nucleotides
 adenine (A), cytosine (C), guanine (G), and thymine (T).
 """
