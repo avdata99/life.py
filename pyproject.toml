@@ -1,2 +1,66 @@
-[tool.pytest.ini_options]
-pythonpath = ["src"]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "life.py"
+description = "A genes data tool"
+readme = "README.md"
+requires-python = ">= 3.10"
+dynamic = ["version"]
+dependencies = [
+
+]
+# license = {file = "LICENSE"}
+license = {text = "MIT License"}
+keywords = [
+    "Gen", "Genetics", "Bio", "BioPython", "Life",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Information Technology",
+  "Intended Audience :: Science/Research",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[tool.hatch.version]
+path = "src/life/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = []
+exclude = []
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/life"]
+
+# [project.scripts]
+# spam-cli = "spam:main_cli"
+
+authors = [
+  {name = "avdata99", email = "andres@data99.com.ar"},
+]
+maintainers = [
+  {name = "avdata99", email = "andres@data99.com.ar"},
+]
+
+[project.urls]
+Homepage = "https://github.com/avdata99/life.py"
+Documentation = "https://github.com/avdata99/life.py"
+Repository = "https://github.com/avdata99/life.py"
+Issues = "https://github.com/avdata99/life.py/issues"
+# Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+
+# [tool.pytest.ini_options]
+# pythonpath = ["src"]
+
+# [project.entry-points."lifepy.plugins"]
+# fasta = "life.plugins:main"
