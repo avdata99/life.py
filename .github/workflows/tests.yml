@@ -38,4 +38,5 @@ jobs:
 
     - name: Run Tests
       run: |
-        pytest -v dev/test
+        cd src
+        python -m unittest discover -v -s ../dev/test
