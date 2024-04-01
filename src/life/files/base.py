@@ -1,4 +1,3 @@
-from life.files import ALL_FILE_CLASSES
 from life.files.enums import GenFileInternalType
 
 
@@ -12,6 +11,7 @@ class GenFile:
     def get_all_extensions(self):
         """ A list of possible extensions for the file """
         # TODO implement a plugin system
+        from life.files import ALL_FILE_CLASSES
         exts = {}  # extension: file_class
         for cls in ALL_FILE_CLASSES:
             for ext in cls.get_extensions():
@@ -19,6 +19,7 @@ class GenFile:
                 if ext in exts:
                     raise ValueError(f'Extension "{ext}" is already in use')
                 exts[ext] = cls
+        return exts
 
     def get_class_from_file_extension(self, extension):
         """ Get the final file class from the extension """
@@ -30,7 +31,7 @@ class GenFile:
             file_type = path.lower().split('.')[-1]
         file_class = self.get_class_from_file_extension(file_type)
         return file_class
-        
+
     def open(self, path, file_type=None):
         """
         Open a file

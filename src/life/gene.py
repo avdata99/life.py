@@ -60,7 +60,7 @@ class Gene:
             return Gene(code)
         raise TypeError(f'Cannot add Gene to {type(other)}')
 
-    def save(self, path, file_type):
+    def save(self, path, file_type=None):
         """ Save gene data
             params:
              - path: str [mandatory]

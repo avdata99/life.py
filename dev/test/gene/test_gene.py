@@ -43,11 +43,12 @@ class TestGene(TestCase):
         with self.assertRaises(InvalidGene):
             Gene('ACGTXCA')
 
-    def test_save_bin(self):
-        self.gene.save_bin('test.bin')
-        with open('test.bin', 'rb') as f:
+    def test_save(self):
+        file_path = 'test.life'
+        self.gene.save(file_path)
+        with open(file_path, 'rb') as f:
             assert f.read() == b'\x00\x01\x02\x03\x02\x01\x00'
-        os.remove('test.bin')
+        os.remove(file_path)
 
     def test_ro_nucleotides(self):
         with self.assertRaises(AttributeError):

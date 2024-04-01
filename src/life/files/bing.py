@@ -27,4 +27,7 @@ class BinGenFile(GenFile):
         return GenFileInternalType.BIN
 
     def save(self, gene, path):
-        pass
+        """ Save as binary """
+        f = open(path, 'wb')
+        f.write(bytes([nuc.value for nuc in gene.nucleotides]))
+        f.close()

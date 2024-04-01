@@ -30,11 +30,12 @@ class TestCodon(TestCase):
         with self.assertRaises(InvalidCodon):
             Codon('XCA')
 
-    def test_save_bin(self):
-        self.codon.save_bin('test.bin')
-        with open('test.bin', 'rb') as f:
+    def test_save(self):
+        file_path = 'test.life'
+        self.codon.save(file_path)
+        with open(file_path, 'rb') as f:
             assert f.read() == b'\x00\x01\x02'
-        os.remove('test.bin')
+        os.remove(file_path)
 
     def test_is_start(self):
         self.assertTrue(Codon('ATG').is_start)
