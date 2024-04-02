@@ -20,6 +20,10 @@ class FastaFile(GenFile):
         if path:
             self.open(path)
         self._max_line_length = max_line_length
+        # a FASTA file can contain multiple sequences
+        self.sequences = []
+        # we use gene objects to load and validate them
+        self.genes = []
 
     @property
     def max_line_length(self):
@@ -34,7 +38,37 @@ class FastaFile(GenFile):
         self._max_line_length = value
 
     def open(self, path):
+        """ Open and load the file """
+        # let the parent to open and do general checks
         super().open(path, file_type=DEFAULT_EXTENSION)
+        logger.info(f'Opening fasta file {path}')
+        content = self.file_obj.read()
+        self.file_obj.close()
+        # iterate all lines
+        lines = content.split('\n')
+        # check if the first line is a description
+        if not lines[0].startswith('>'):
+            # TODO read FASTA specs https://en.wikipedia.org/wiki/FASTA_format
+            # maybe ";" is also allowed
+            raise ValueError('The first line must start with ">"')
+
+        self.sequences = []
+        for line in lines:
+            if line.startswith('>'):
+                description = line[1:]
+                description = description.strip()
+                logger.info(f' - Sequence found "{description}"')
+                seq = {'description': description, 'code': ''}
+                self.sequences.append(seq)
+            else:
+                self.sequences[-1]['code'] += line.strip().upper()
+
+        total_seq = len(self.sequences)
+        logger.info(f'{total_seq} sequences found')
+        # for seq in self.sequences:
+        #     gene = Gene(seq['code'], description=seq['description'])
+        #     self.genes.append(gene)
+        # TODO continue
 
     @staticmethod
     def get_extensions():
