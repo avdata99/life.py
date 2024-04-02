@@ -43,15 +43,15 @@ class FastaFile(GenFile):
 
     def save(self, gene, path, **kwargs):
         """ Save as fasta """
+        max_line_length = self._max_line_length
         for k, v in kwargs.items():
             if k == 'max_line_length':
-                self._max_line_length = v
-            # raise on unexpected kwargs
-            else:
+                max_line_length = v
+            else:  # raise on unexpected kwargs
                 raise TypeError(f'Unexpected argument {k}')
-        logger.debug(f'Saving gene as fasta [{self._max_line_length}] to {path}')
+        logger.debug(f'Saving gene as fasta [{max_line_length}] to {path}')
         f = open(path, 'w')
         f.write(f'>{gene.description}\n')
-        for i in range(0, len(gene), self._max_line_length):
-            f.write(gene.code[i:i + self._max_line_length] + '\n')
+        for i in range(0, len(gene), max_line_length):
+            f.write(gene.code[i:i + max_line_length] + '\n')
         f.close()
