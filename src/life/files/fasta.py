@@ -1,3 +1,8 @@
+"""
+Fasta file processing
+Continue from here:
+https://en.wikipedia.org/wiki/FASTA_format
+"""
 import logging
 from life.files.base import GenFile
 from life.files.enums import GenFileInternalType
