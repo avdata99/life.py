@@ -73,12 +73,13 @@ class Gene:
             return Gene(code)
         raise TypeError(f'Cannot add Gene to {type(other)}')
 
-    def save(self, path, file_type=None):
+    def save(self, path, file_type=None, **kwargs):
         """ Save gene data
             params:
              - path: str [mandatory]
              - file_type: str [optional] life | fasta | fa | others by plugins
                If the path ends with an known extension we can omit this parameter
+             - kwargs: dict [optional] extra parameters for the file class
         """
         gf = GenFile()
-        gf.save(gene=self, path=path, file_type=file_type)
+        gf.save(gene=self, path=path, file_type=file_type, **kwargs)

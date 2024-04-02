@@ -30,4 +30,31 @@ AT
 
 ```python
 from life import Gene
+sequence = (
+    "ggtaagtcctctagtacaaacacccccaatattgtgatataattaaaattatattcatat"
+    "tctgttgccagaaaaaacacttttaggctatattagagccatcttctttgaagcgttgtc"
+    "ggtaagtgctctagtacaaacacccccaatattgtgatataattaaaattatattcatat"
+    "tctgttgccagattttacacttttaggctatattagagccatcttctttgaagcgttgtc"
+    "tatgcatcgatcgacgactg"
+)
+g = Gene(sequence)
+g.description = 'Some sample description'
+# save will discover your desired format
+g.save('test.fasta')
+"""
+>Some sample description
+GGTAAGTCCTCTAGTACAAACACCCCCAATATTGTGATATAATTAAAATTATATTCATATTCTGTTGCCAGAAAAAACAC
+TTTTAGGCTATATTAGAGCCATCTTCTTTGAAGCGTTGTCGGTAAGTGCTCTAGTACAAACACCCCCAATATTGTGATAT
+AATTAAAATTATATTCATATTCTGTTGCCAGATTTTACACTTTTAGGCTATATTAGAGCCATCTTCTTTGAAGCGTTGTC
+TATGCATCGATCGACGACTG
+"""
+g.save('test.110.fasta', max_line_length=110)
+"""
+>Some sample description
+GGTAAGTCCTCTAGTACAAACACCCCCAATATTGTGATATAATTAAAATTATATTCATATTCTGTTGCCAGAAAAAACACTTTTAGGCTATATTAGAGCCATCTTCTTTG
+AAGCGTTGTCGGTAAGTGCTCTAGTACAAACACCCCCAATATTGTGATATAATTAAAATTATATTCATATTCTGTTGCCAGATTTTACACTTTTAGGCTATATTAGAGCC
+ATCTTCTTTGAAGCGTTGTCTATGCATCGATCGACGACTG
+"""
+g.save('test.life')
+# Binary custom content
 ```

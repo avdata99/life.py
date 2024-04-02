@@ -1,7 +1,9 @@
+import logging
 from life.files.base import GenFile
 from life.files.enums import GenFileInternalType
 
 
+logger = logging.getLogger(__name__)
 DEFAULT_EXTENSION = 'fasta'
 
 
@@ -39,7 +41,15 @@ class FastaFile(GenFile):
         """ Get the internal type of the file """
         return GenFileInternalType.TEXT
 
-    def save(self, gene, path):
+    def save(self, gene, path, **kwargs):
+        """ Save as fasta """
+        for k, v in kwargs.items():
+            if k == 'max_line_length':
+                self._max_line_length = v
+            # raise on unexpected kwargs
+            else:
+                raise TypeError(f'Unexpected argument {k}')
+        logger.debug(f'Saving gene as fasta [{self._max_line_length}] to {path}')
         f = open(path, 'w')
         f.write(f'>{gene.description}\n')
         for i in range(0, len(gene), self._max_line_length):

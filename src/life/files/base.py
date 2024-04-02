@@ -57,7 +57,7 @@ class GenFile:
         """
         raise NotImplementedError('get_file_internal_type method not implemented')
 
-    def save(self, gene, path, file_type=None):
+    def save(self, gene, path, file_type=None, **kwargs):
         """ Save gene data with the expected class """
         file_class = self.get_class_from_path_or_type(path, file_type)
         if not file_class:
@@ -65,4 +65,4 @@ class GenFile:
 
         # This class will know how to save the gene
         f = file_class()
-        f.save(gene=gene, path=path)
+        f.save(gene=gene, path=path, **kwargs)
