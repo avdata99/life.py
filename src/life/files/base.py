@@ -2,7 +2,7 @@ from life.files.enums import GenFileInternalType
 
 
 class GenFile:
-    """ Abstract class to inherit from for file generation. """
+    """ Class to inherit from for file generation classes. """
 
     def __init__(self):
         # The internal file object
@@ -27,6 +27,9 @@ class GenFile:
         return exts.get(extension)
 
     def get_class_from_path_or_type(self, path, file_type):
+        """ Check the path or the file_type to get the class.
+            Prioritize the user defined file_type
+        """
         if not file_type:
             file_type = path.lower().split('.')[-1]
         file_class = self.get_class_from_file_extension(file_type)
@@ -34,7 +37,7 @@ class GenFile:
 
     def open(self, path, file_type=None):
         """
-        Open a file
+        Open a file and load self.file_obj with the file object
         params:
          - path: str [mandatory]
          - format: str [optional if path ends with a known extension]
