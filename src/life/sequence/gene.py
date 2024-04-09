@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 from life import Nucleotide
 from life.exceptions import InvalidNuecleotide, InvalidGene
 from life.files.base import GenFile
@@ -6,18 +9,31 @@ from life.files.base import GenFile
 class Gene:
     """ Justa group of nucleotides """
 
-    def __init__(self, nucleotides):
-        nucleotides = nucleotides.upper()
+    def __init__(self, nucleotides, load_from=None, load_to=None):
+        """ Create a gene from a string of nucleotides
+            Params:
+             - nucleotides: str [mandatory] A string with the nucleotides
+             - load_from: int [optional] Load the gene from this index in the string
+             - load_to: int [optional] Load the gene to this index in the string
+        """
+        if not isinstance(nucleotides, str):
+            raise InvalidGene(f'Gene must be a string, not {type(nucleotides)}')
+        self.loaded_from_index = load_from
+        self.loaded_to_index = load_to
+        self._all_str = nucleotides[load_from:load_to].upper()
         try:
-            self._nucleotides = [Nucleotide(nuc) for nuc in nucleotides]
+            self._nucleotides = [Nucleotide(nuc) for nuc in self._all_str]
         except InvalidNuecleotide as e:
             raise InvalidGene(f'{nucleotides} is not a valid gene') from e
-        self._all_str = nucleotides
         self._description = None
 
     @property
     def nucleotides(self):
         return self._nucleotides
+
+    @property
+    def nucleotides_str(self):
+        return self._all_str
 
     @property
     def code(self):
@@ -83,3 +99,25 @@ class Gene:
         """
         gf = GenFile()
         gf.save(gene=self, path=path, file_type=file_type, **kwargs)
+
+    def as_dataframe(self, from_=None, to=None):
+        """ Convert the gene to a pandas dataframe
+            Params:
+             - from_: int [optional] Start from this index (inside the initial data loaded)
+             - to: int [optional] End to this index (inside the initial data loaded)
+        """
+        if from_ is None:
+            from_ = 0
+        if to is None:
+            to = len(self)
+        serie_str = self._all_str[from_:to]
+        return pd.Series(list(serie_str))
+
+    def as_numpy_array(self, from_=None, to=None):
+        """ Convert the gene to a numpy  array """
+        if from_ is None:
+            from_ = 0
+        if to is None:
+            to = len(self)
+        serie_str = self._all_str[from_:to]
+        return np.array(list(serie_str))

@@ -34,7 +34,29 @@ class FastaFile(GenFile):
         self._max_line_length = value
 
     def open(self, path):
-        super().open(path, file_type=DEFAULT_EXTENSION)
+        """ Read the whole file and store the genes in memory """
+        from life import Gene
+        f = open(path, 'r')
+        self.file_content = f.read()
+        f.close()
+        current_gene = None
+        for line in self.file_content.split('\n'):
+            if line.startswith('>'):
+                if current_gene:
+                    g = Gene(current_gene['code'])
+                    g.description = current_gene['description']
+                    self.genes.append(g)
+                current_gene = {'description': line[1:], 'code': ''}
+            else:
+                current_gene['code'] += line.strip()
+
+        if not current_gene:
+            raise ValueError('No genes found in the file')
+
+        # load the last gene
+        g = Gene(current_gene['code'])
+        g.description = current_gene['description']
+        self.genes.append(g)
 
     @staticmethod
     def get_extensions():
