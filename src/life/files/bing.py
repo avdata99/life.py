@@ -14,7 +14,7 @@ class BinGenFile(GenFile):
             self.open(path)
 
     def open(self, path):
-        super().open(path, file_type=DEFAULT_EXTENSION)
+        raise NotImplementedError('BinGenFile open not implemented')
 
     @staticmethod
     def get_extensions():

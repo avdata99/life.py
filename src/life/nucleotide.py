@@ -5,7 +5,7 @@ adenine (A), cytosine (C), guanine (G), and thymine (T).
 from life.exceptions import InvalidNuecleotide
 
 
-VALID_NUCS = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+VALID_NUCS = {'A': 0, 'C': 1, 'G': 2, 'T': 3, 'U': 3}
 
 
 class Nucleotide:
