@@ -2,7 +2,7 @@ import pandas as pd
 from life.files.base import GenFile
 from life.sequence.charts import histogram
 
-gf = GenFile('../dev/sample/fasta/mouse.fasta')
+gf = GenFile('dev/sample/fasta/mouse.fasta')
 g = gf._up_class.genes[0]
 code = g.code
 
@@ -14,4 +14,6 @@ for char in code:
     c += 1
 
 dataframe = pd.Series(groups)
-histogram.show_histogram_from_dataframe(dataframe)
+# show only just the N most common groups
+dataframe_10 = dataframe.value_counts().head(10)
+histogram.show_histogram_from_dataframe(dataframe_10)
